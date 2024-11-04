@@ -67,7 +67,17 @@ const App = () => {
       changeForthNumber(number);
     }
   };
-
+  const deleteNumber = () => {
+    if (forthNumber != null) {
+      changeForthNumber(null);
+    } else if (thirdNumber != null) {
+      changeThirdNumber(null);
+    } else if (secondNumber != null) {
+      changeSecondNumber(null);
+    } else if (firstNumber != null) {
+      changeFirstNumber(null);
+    }
+  };
   const send = () => {
     if (
       firstNumber != null &&
@@ -119,8 +129,8 @@ const App = () => {
         b++;
       }
       setGuessHistory([
-        ...guessHistory,
         firstNumber + "" + secondNumber + "" + thirdNumber + "" + forthNumber,
+        ...guessHistory,
       ]);
       setCountA(a);
       setCountB(b);
@@ -128,7 +138,7 @@ const App = () => {
       changeSecondNumber(null);
       changeThirdNumber(null);
       changeForthNumber(null);
-      setResultHistory([...resultHistory, a + "A" + b + "B"]);
+      setResultHistory([a + "A" + b + "B", ...resultHistory]);
     } else {
       alert("fuck you bitch, you do not even know the rules");
     }
@@ -145,9 +155,15 @@ const App = () => {
       <div className="flex items-center justify-center">
         <button
           onClick={send}
-          className="border border-black w-[50px] h-[30px] rounded-md bg-grey-500"
+          className="border border-black w-[50px] h-[30px] rounded-md bg-grey-500 mx-1"
         >
           <p>send</p>
+        </button>
+        <button
+          onClick={deleteNumber}
+          className="border border-black w-[50px] h-[30px] rounded-md bg-grey-500"
+        >
+          <p>delete</p>
         </button>
       </div>
       <div className="flex flex-row items-center justify-center">
@@ -161,12 +177,12 @@ const App = () => {
       </div>
       <div className="flex flex-row items-center justify-center">
         <div className="flex flex-col items-center justify-center">
-          {guessHistory?.map((guess) => (
+          {guessHistory?.reverse().map((guess) => (
             <h1 className="text-[40px] m-1">{guess}</h1>
           ))}
         </div>
         <div className="flex flex-col items-center justify-center">
-          {resultHistory?.map((result) => (
+          {resultHistory?.reverse().map((result) => (
             <h1 className="text-[40px] m-1">{result}</h1>
           ))}
         </div>
